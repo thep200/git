@@ -1,96 +1,134 @@
-# This file contains the commands git popular and advance
+# Git command tricks and guide
+**My CV**
+[My CV link](https://thep200.github.io/)
 
-Một số tip và commands git hay sử dụng.
 
+## Setup and check username and email.
+**Setup**
 
-## Thiết lập và kiểm tra username và gmail.
+```
+git config --global user.name [Your_Name]
+git config --global user.email  [Your Email Git]
+```
 
-**Thiết lập**
-- git config --global user.name [Your_Name]
-- git config --global user.email  [Your Email Git]
+**Check**
 
-**Kiểm tra**
-- git config user.name   : Kiểm tra user_name đang sử dụng
-- git config user.email   : Kiểm tra email đang sử dụng
+```
+git config user.name   : Show username
+git config user.email  : Show email address
+```
+
 
 ## .Gitignore
+> **Note** : The files' name that has appeared in this list is going to `ignore` in the process work of git.
 
-> **Note** : Các file có tên trong danh sách này sẽ bị **lờ** qua khi thao tác với repo
+> **Note** :  Use `git-bash` to create this file.
 
-> **Note** :  Sử dụng **git-bash** để tạo file này
+```
+touch : .gitignore
+```
 
-- touch : .gitignore
+## Clone a repository
+```
+git clone [Link_gitrepo]
+```
 
+## Link a exists folder to the repository
 
+> **Note** : The folder that link must to has the same name as a repository.
 
-## Clone một repo về local
-
-- git clone [Link_gitrepo]
-
-## Liên kết một Folder có sẵn với một Repo
-> **Note** : folder có sẵn phải cùng tên với repo
-- git init 
-- git remote add origin [Link_repo] 
-- git remote -v 
-- git fetch
-- git checkout [Name_branch]
-- git pull : Đồng bộ ở local với server
+```
+git init 
+git remote add origin [Link_repo]   : Link to the repository
+git remote -v                       : Check the link
+git fetch
+git checkout [Name_branch]
+git pull                            : synchronized with server
+```
 
 ## Push file
-- git add --all
-- git add .
-- git add -A
-- git status
-- git commit -m [Message]
-- git push origin [Name_branch]
+```
+git add --all
+git add .
+git add -A
+git status
+git commit -m [Message]
+git push origin [Name_branch]
+```
 
-## Các thao tác cơ bản với branch
-- git branch : Xem branch hiện tại
-- git branch -a : Show danh sách các branch hiện có
-- git branch [Name_branch] : Tạo một branch mới
-- git branch -d [Name_branch] : Xóa branch
-- git push origin :[Name_branch] : Cập nhật việc xóa branch đó trên server
-- git checkout [Name_branch] : Chuyển đến một branch khác
-- git checkout -b [Name_branch] : Tạo một branch mới và nhảy sang branch đó luôn
+## Commands basic with branch
+```
+git branch                      : Show current branch
+git branch -a                   : Show list branch
+git branch [Name_branch]        : Create a new branch
+git branch -d [Name_branch]     : Del a branch
+git push origin :[Name_branch]  : Update changes to server
+git checkout [Name_branch]      : Switch another branch
+git checkout -b [Name_branch]   : Create a new branch and jump to that
+```
 
-## Reset commit và Unreset commit
-- git log : Xem lại lịch sử commit.
-- gitk : Xem lại lịch sử commit với giao diện đồ họa.
+## Reset commit and Unreset commit
+```
+git log : Show the history commit
+gitk    : Show the history commit but with UI.
+```
 
-> **Note** : từ lệnh git log ta có thể xem cái ID của từng commit.
+> **Note** : From the git log command, we can get the ID for each commit.
 
-- git reset --hard [ID_commit] : quay lại commit có ID tương ứng, có tác với cả với **Shift + del**.
-- git reflog : Xem lại tất cả các commit từng thực hiên ngay cả khi đã dùng **git reset**.
+```
+git reset --hard [ID_commit] : Turn back commit that has ID specified and this command useful even the file has deleted by (Shift + Del)
+git reflog                   : Show all commits that uesed to done even used git reset before.
+```
 
-> **Note** : từ câu lệnh **git reflog** ta có thể lấy được tất cả các ID commit.
+> **Note** : From `git reflog` command we can get the ID for all commits.
 
-- git commit --amend -m [Message] : Thực hiện ghi đè lên commit cuối cùng.
-- git reset HEAD@{n} : Unreset một reset trước đó **n có thể tìm thấy ở câu lệnh git reflog**
-- git push -f : Lưu các thay đổi lên server
+```
+git commit --amend -m [Message] : Commit modify on the latest commit
+git reset HEAD@{n}              : Unreset with n can get by the command git reflog.
+git push -f                     
+```
+
+
+## Merge and solve conflict git
+**Merge**
+
+```
+git merge [Name_branch]
+```
+**Solve conflict**
+
+> **Note** : Edit file that requested
+ 
+ ```
+ git add .
+ git push
+ ```
+
 
 ## Git cherry-pick
-
-> **Note** : Đôi lúc chúng ta chỉ muốn lấy **một** hoặc **một vài** commit ở branch phụ vào branch chính thì đó là lúc chúng ta sử dụng câu lệnh **git cherry-pick**.
-
-***master**
-
-- git cherry-pick [id_commit] : Lấy commit có id chỉ định vào branch chính
-- git cherry-pick [Name_branch]~n : **n** là số thứ tự commit
-- git cherry-pick [ID_commit(a) ... ID_commit(b)] : Lấy các commit có ID liền nhau từ **a đến b**
-
-## Thực hiện commit trên 2 branch cùng một lúc
+> **Note** : Sometimes we need to add `one` or `some` commit from sub-branch to main-branch that time we can use the `git cherry-pick` command. 
 
 ***master**
+
 ```
-- git commit -m [Message] 
-- git push
-- git checkout [Name_branch]
+git cherry-pick [id_commit]                     : Add commit that has ID specified to the branch master.
+git cherry-pick [Name_branch]~n                 : n is numbers of commits
+git cherry-pick [ID_commit(a) ... ID_commit(b)]
 ```
 
-```python
-[i for i in range(10)]
+
+## Commit on two branch in the same time
+***master**
+
 ```
+git commit -m [Message] 
+git push
+git checkout [Name_branch]
+```
+
 ***[Name_branch]**
 
-- git cherry-pick master : Câu lệnh này sẽ lấy commit cuối cùng của **master** để add. 
-- git push origin [Name_branch]
+```
+git cherry-pick master         : This command 'll get the latest commit in master to add. 
+git push origin [Name_branch]
+```
