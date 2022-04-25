@@ -1,4 +1,12 @@
-# Git command tricks and guides
+# Git command tips and guides
+
+## Setup git
+### Thay đổi editor 
+> Editor mặc định của git là command vim, được sử dụng ví dụ như lúc ta sửa message trong `git commit --amend`.
+```
+git config --global core.editor "code --wait"		: Thay đổi editor
+git config --global -e 								: Sử dụng editor
+```
 
 
 ## Setup and check username and email.
@@ -16,19 +24,10 @@ git config user.name   : Show username
 git config user.email  : Show email address
 ```
 
-
-## .Gitignore
-> **Note** : The files' name that has appeared in this list is going to `ignore` in the process work of git.
-
-> **Note** :  Use `git-bash` to create this file.
-
-```
-touch : .gitignore
-```
-
 ## Clone a repository
 ```
-git clone [Link_gitrepo]
+git clone [link_repository]		: Clone một repo về
+git pull						: Pull bản mới nhất về
 ```
 
 ## Link a exists folder to the repository
@@ -45,30 +44,62 @@ git pull                            : synchronized with server
 ```
 
 ## Push file
+### Git add
 ```
-git add --all
-git add .
-git add -A
-git status
-git commit -m [Message]
-git push origin [Name_branch]
+git status						: Check trạng thái thay đổi các file trong folder
+git add --all					: Add tất cả các file vào staging area
+git add -A 						: Viết tắt của "git add --all"
+git add .						: Add tất cả file tại thư mục hiện tại
+git restore --staged .			: unadd các file trong thư mục đã chọn
 ```
 
-## Commands basic with branch
+### Git commit
 ```
-git branch                      : Show current branch
-git branch -a                   : Show list branch
-git branch [Name_branch]        : Create a new branch
-git branch -d [Name_branch]     : Del a branch
-git push origin :[Name_branch]  : Update changes to server
-git checkout [Name_branch]      : Switch another branch
-git checkout -b [Name_branch]   : Create a new branch and jump to that
+git commit -m [Message]				: Thực hiện commit
+git push origin [Name_branch]		: Push lên server (sau lần push đầu thì từ các lần sau có thể dùng "git push" cho ngắn gọn)
 ```
+
+#### Git amend
+> **Note** Git sẽ show editor để ta sửa message (mặc định là vim)
+> Sử dụng 'a' để chuyển mode insert rồi sửa message
+> Sử dụng 'Esc' đê thoát mode insert
+> Sử dụng ':q' để thoát hoặc ':!q' để thoát ra và lưu lại
+```
+git commit --amend -m [Message]		: Ghi đè lên Commit cuối cùng (git sẽ không show editor khi dùng lệnh này ---> nên dùng)
+git commit --amend					: (git sẽ show editor khi dùng lệnh này =)))
+git push -f 						: Push lên server khi dùng "git commit --amend" 
+```
+
+
+## Branch
+### Switch branch
+```
+git checkout [Name_branch]      : Chuyển sang branch mới
+git switch [Name_branch]        : Chuyển sang branch mới
+git branch                      : Show tên branch hiện tại
+git branch -a                   : show list các branch
+```
+
+### Create branch
+```
+git branch [Name_branch]					: Tạo một branch mới
+git checkout -b [Name_branch]				: Tạo và switch sang branch mới tạo
+git branch -m [new_name] [old_name]			: Rename branch khi đang ở một branch khác
+git branch -m [new_name]					: Rename branch hiện tại khi đang ở branch hiện tại.
+```
+
+### Del branch
+```
+git branch -d [Name_branch]     : Xóa một branch
+git push origin :[Name_branch]  : Update thay đổi lên server
+```
+
+
 
 ## Reset commit and Unreset commit
 ```
-git log : Show the history commit
-gitk    : Show the history commit but with UI.
+git log : Show tất cả các commit (Enter để xem chi tiết và gõ "q" để quay lại)
+gitk    : Show tất cả commit nhưng có UI
 ```
 
 > **Note** : From the git log command, we can get the ID for each commit.
@@ -81,17 +112,17 @@ git reflog                   : Show all commits that uesed to done even used git
 > **Note** : From `git reflog` command we can get the ID for all commits.
 
 ```
-git commit --amend -m [Message] : Commit modify on the latest commit
 git reset HEAD@{n}              : Unreset with n can get by the command git reflog.
 git push -f                     
 ```
 
 
 ## Merge and solve conflict git
-**Merge**
+### Merge
 
 ```
-git merge [Name_branch]
+git merge [name_branch]		: Merge branch với branch hiện tại (sẽ không update các thay đổi của branch hiện tại vào branch mới)
+git rebase [name_branch]
 ```
 **Solve conflict**
 
@@ -130,3 +161,4 @@ git checkout [Name_branch]
 git cherry-pick master         : This command 'll get the latest commit in master to add. 
 git push origin [Name_branch]
 ```
+
