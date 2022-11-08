@@ -1,4 +1,4 @@
-# Git command tips and guides
+# Git commands
 
 ## Setup
 ### Setup username and email
@@ -67,8 +67,9 @@ git remote add [New_name] [Link_repo]   : Thêm mới một remote *new_name th�
 ## Pull & fetch
 ```
 git pull        : Cập nhập thay đổi từ remote và merge ngay với local.
-git fetch       : Cập nhập thay đổi từ remote và giữ nguyên không merge ngay với local *một phiên bản an toàn hơn của `git pull`* phải merge thủ công.
+git fetch       : Cập nhập thay đổi từ remote và giữ nguyên không merge ngay với local.
 ```
+> `git pull` có thể hiểu đơn giản là `git fetch` + `git merge`. Do đó ta nói `git fetch` là một phiên bản get code nhưng an toàn hơn.
 
 ## Add
 ### Git add
@@ -154,7 +155,7 @@ git rebase [name_branch]
 ```
 
 ## Squash
-> Gộp các commit chỉ định thành 1 commit *Sạch commit khi thực hiện pr (pull request)*
+> Gộp các commit chỉ định thành 1 commit *Khi thực hiện pr (pull request)*
 ```
 Step1: git log 	: Show tất cả các commit (Enter để xem chi tiết và gõ "q" để quay lại)
 Step2: git rebase --interactive (or -i) HEAD~n : Gộp n commit mới nhất thành 1 commit mới (commit thứ n cũ nhất sẽ được squash)
@@ -163,21 +164,22 @@ Step4: *git sẽ show tiếp một editor nữa để sửa message cho commit m
 Step5: git push origin [Name_branch] -f : Push lên server
 Step6: git log	: Để kiểm tra lại
 ```
-> **Notes** : chú ý một só điểm sau khi thực hiện squash:
+> **Notes** : chú ý một số điểm khi thực hiện squash:
 > -	Thứ tự của commit ở `git log` từ trên xuống là mới nhất đến cũ nhất.
 > - Thứ tự của commit ở Editor từ trên xuống là cũ nhất đến mới nhất.
 > - Git chỉ thực hiện squash gộp các commit mới nhất vào commit cũ nhất.
 > - Cũ nhất là commit thứ n cũ nhất.
 
 ## Git stash
-> Sử dụng khi ta đột ngột cần quay lại làm một task cũ đã commited trước đó và phải bỏ dở task hiện tại. `git stach` lưu công việc còn làm dở và stash để apply lại sau.
+> Sử dụng khi ta đột ngột cần quay lại làm một task cũ đã commited trước đó và phải bỏ dở task hiện tại. `git stash` lưu công việc còn làm dở vào stack.
 ```
-git stash save                  : Lưu công việc đang làm dở vào stask
-git stash save -u [name_stash]  : Lưu cả những file mới tạo vào stash
 git stash list                  : Show danh sách các stask đã lưu
+git stash clear                 : Xóa list các stash đã lưu.
+git stash save                  : Lưu công việc đang làm dở vào stask. Save được sử dụng khi muốn thêm message.
+git stash save -u [name_stash]  : Lưu cả những file mới tạo vào stash
 git stash show -p               : Xem chi tiết thay đổi
 git stash apply stash@{id}      : Apply stack đã lưu vào code hiện tại
-git stash pop stash@{id}        : Pop stack đã lưu vào code hiện tại (apply lại và xóa stack đã lưu)
+git stash pop stash@{id}        : Apply stash mới nhất và remove nó khỏi list stash
 ```
 > **Note** : Để quay lại làm một task cũ ta có thể kết hợp sử dụng `git reset`.
 
