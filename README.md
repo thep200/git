@@ -159,15 +159,15 @@ git rebase [name_branch]
 ```
 Step1: git log 	: Show tất cả các commit (Enter để xem chi tiết và gõ "q" để quay lại)
 Step2: git rebase --interactive (or -i) HEAD~n : Gộp n commit mới nhất thành 1 commit mới (commit thứ n cũ nhất sẽ được squash)
-Step3: *git sẽ show editor để pick những cái nào mình sẽ định gộp gõ *s* vào trước Id commit để đánh dấu cái cần gộp*
-Step4: *git sẽ show tiếp một editor nữa để sửa message cho commit mới gộp (đặt tên cho commit mới gộp)*
+Step3: git sẽ show editor để pick những cái nào mình sẽ định gộp gõ *s* vào trước Id commit để đánh dấu cái cần gộp. Sau khi đánh xong thì nhấn `Esc` để thoát chế độ insert của vim và gõ `:wq` để lưu và chuyển sang màn hình khác của squash.
+Step4: git sẽ show tiếp một editor nữa để sửa message cho commit mới gộp (đặt tên cho commit mới gộp). Ghi msg của commit mới vào dòng thứ 2 của editor (có chỉ dẫn) sau đó gõ `Esc` và `:wq` để thoát và lưu.
 Step5: git push origin [Name_branch] -f : Push lên server
 Step6: git log	: Để kiểm tra lại
 ```
 > **Notes** : chú ý một số điểm khi thực hiện squash:
 > -	Thứ tự của commit ở `git log` từ trên xuống là mới nhất đến cũ nhất.
 > - Thứ tự của commit ở Editor từ trên xuống là cũ nhất đến mới nhất.
-> - Git chỉ thực hiện squash gộp các commit mới nhất vào commit cũ nhất.
+> - Git chỉ thực hiện squash gộp các commit mới nhất vào commit cũ nhất. Có thể squash các commit từ trên xuống trên editor (gộp các commit ở dưới vào commit trên đó)
 > - Cũ nhất là commit thứ n cũ nhất.
 
 ## Git stash
