@@ -69,22 +69,24 @@ git remote add [New_name] [Link_repo]   : Thêm mới một remote *new_name th�
 git pull        : Cập nhập thay đổi từ remote và merge ngay với local.
 git fetch       : Cập nhập thay đổi từ remote và giữ nguyên không merge ngay với local.
 ```
+>  `git fetch` tải xuống các thay đổi từ tất cả các nhánh từ xa, trong khi `git fetch origin develop` chỉ tải xuống các thay đổi từ nhánh develop của kho lưu trữ từ xa.
+
 > `git pull` có thể hiểu đơn giản là `git fetch` + `git merge`. Do đó ta nói `git fetch` là một phiên bản get code nhưng an toàn hơn.
 
 ## Add
 ### Git add
 ```
-git status                  : Check trạng thái thay đổi các file trong folder
-git add --all               : Add tất cả các file vào staging area
-git add -A                  : Viết tắt của "git add --all"
-git add .                   : Add tất cả file tại thư mục hiện tại
-git restore --staged .      : unadd các file trong thư mục đã chọn
+git status              : Check trạng thái thay đổi các file trong folder
+git add --all           : Add tất cả các file vào staging area
+git add -A              : Viết tắt của "git add --all"
+git add .               : Add tất cả file tại thư mục hiện tại
+git restore --staged .  : unadd các file trong thư mục đã chọn
 ```
 
 ### Git commit
 ```
-git commit -m [Message]            : Thực hiện commit
-git push origin [Name_branch]      : Push lên server (sau lần push đầu thì từ các lần sau có thể dùng "git push" cho ngắn gọn)
+git commit -m [Message]       : Thực hiện commit
+git push origin [Name_branch] : Push lên server
 ```
 
 ### Git commit amend
