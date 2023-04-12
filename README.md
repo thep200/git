@@ -176,7 +176,7 @@ git checkout -n <branch_name>   : tạo một branch mới từ tag hiện tại
 git reset --hard <id_commit>    : di chuyển HEAD đến commit chỉ định và các commit sau commit chỉ định đó sẽ bị xóa bỏ vĩnh viễn.
 git checkout <tag_name>         : chỉ đơn giản là quay lại một commit đã được đánh dấu mà không làm thay đổi lịch sử commit.
 ```
-[Xem thêm](#git-reset)
+[Xem thêm git reset](#git-reset)
 
 ## Merge & rebase
 ### Merge
@@ -247,3 +247,15 @@ git push origin master
 ```
 
 ## Git reset
+`git reset` được sử dụng để đặt lại vị trí HEAD của một branch đến một id_commit được chỉ định. Hay hiểu đơn giản là ta có thể quay lại commit cũ.
+```
+git reset --soft <id_commit>    : đặt HEAD về commit được chỉ định. Không làm thay đổi thư mục làm việc. Thay đổi chỉ mục (tự động add các thay đổi so với branch hiện tại vào staged)
+git reset --mixed <id_commit>   : giống `--soft` tuy nhiên nó không đặt lại chỉ mục.
+git reset --hard <id_commit>    : đặt lại HEAD về commit chỉ định. Thay đổi toàn bộ thư mục làm việc về commit đó. Xóa hoàn toàn các thay đổi chưa được commit.
+```
+> Khi sử dụng git reset chúng ta có nguy cơ bị mất commit, còn nội dung của các commit bị xóa chúng ta vẫn có thể lấy lại bằng cách sử dụng `git reflog` để lấy id và quay lại commit bị xóa.
+
+`commit 1` --> `commit 2` --> `commit 3`(HEAD)
+> Với ví dụ trên nếu ta sử dụng `git reset` để quay lại `commit 1` và từ commit đó chúng ta tạo thêm một `commit 4`:
+`commit 1` --> `commit 4`(HEAD)
+> Khi đó chúng ta có thể giữ các thay đổi của các commit 2, 3 bị xóa tuy nhiên không thể có một commit thằng 1 -> 2 -> 3 -> 4 được nữa.
