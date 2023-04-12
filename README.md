@@ -143,6 +143,41 @@ git branch -d [Name_branch]     : Xóa một branch trên local
 git push origin :[Name_branch]  : Update thay đổi lên server
 ```
 
+## Git tag
+Git tag được sử dụng để đặt tên cho một commit cụ thể và release một phiên bản từ commit đó. Có các loại git tag như sau:
+- Lightweight tag   : chỉ chứa tên của tag
+- Annotated tag     : chứa tên tag và các thông tin khác qua message kèm theo.
+```
+git tag <tag_name>                  : tạo một lightweight tag với tên là tag_name, `gắn vào commit trước đó`. Message sẽ là message của commit trước đó
+git tag -a <tag_name> -m <message>  : tạo một annotated tag với tên và messages cho commit trước đó
+
+git log     : để lấy ra id (hash) của các commit trong một repo.
+git tag <tag_name> <id_commit>                  : tạo một lightweight tag cho commit chỉ định
+git tag -a <tag_name> -m <message> <id_commit>  : tạo một annotated tag với tên và messages cho commit chỉ định.
+
+git tag -n          : show thông tin từng tag trên một dòng.
+git show <tag_name> : show thông tin chi tiết của một tag.
+```
+
+Thêm xóa
+```
+git push origin <tag_name>  : push một tag lên remote
+git push origin --tags      : push tất cả các tag lên remote
+
+git tag -d <tag_name>       : xóa một tag ở local
+git push origin :<tag_name>  : xóa một tag ở remote nếu đã push nó lên local.
+```
+
+Ta có thể quay lại một commit thông qua một tag. Nếu một tag chưa được đặt tên ta có thể sử dụng `git log` để tìm hash id của commit và thực hiện gán tag cho hash id đó rồi sau đó thực hiện back lại commit thông qua tag. (Cách này an toàn hơn dùng `git reset --hard <id_commit>`)
+```
+git checkout <tag_name>         : chuyển đến tag chỉ định
+git checkout -n <branch_name>   : tạo một branch mới từ tag hiện tại.
+
+git reset --hard <id_commit>    : di chuyển HEAD đến commit chỉ định và các commit sau commit chỉ định đó sẽ bị xóa bỏ vĩnh viễn.
+git checkout <tag_name>         : chỉ đơn giản là quay lại một commit đã được đánh dấu mà không làm thay đổi lịch sử commit.
+```
+[Xem thêm](#git-reset)
+
 ## Merge & rebase
 ### Merge
 Khi merge bị conflict thì sử dụng `git status` để xem file vào bị conflict và sửa. Sau khi sửa lại thì thực hiện `git add` và `git commit` để merge.
@@ -198,7 +233,7 @@ git cherry-pick [Name_branch]~n                  : n mới nhất từ branch
 git cherry-pick ID_commit(a)^...ID_commit(e)     : Pick các commit liền kề nhau (a, b, c, d,..., e) ---> Bỏ ^ nếu không muốn lấy commit a.
 ```
 
-## Thực hiện commit trên 2 branch cùng một thời điểm
+### Thực hiện commit trên 2 branch cùng một thời điểm
 > Ví dụ thực hiện
 > Trên branch ***[Name_branch]**
 ```
@@ -210,3 +245,5 @@ git checkout [Name_branch]            : Chuyển sang branch mới
 git cherry-pick [Name_branch]         : Pick commit mới nhất trên master và branch hiện tại
 git push origin master
 ```
+
+## Git reset
