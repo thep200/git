@@ -259,3 +259,14 @@ git reset --hard <id_commit>    : đặt lại HEAD về commit chỉ định. T
 > Với ví dụ trên nếu ta sử dụng `git reset` để quay lại `commit 1` và từ commit đó chúng ta tạo thêm một `commit 4`:
 `commit 1` --> `commit 4`(HEAD)
 > Khi đó chúng ta có thể giữ các thay đổi của các commit 2, 3 bị xóa tuy nhiên không thể có một commit thằng 1 -> 2 -> 3 -> 4 được nữa.
+
+## Git clean
+`git clean` xoá các file không được git quản lý (các file tạo mới trong quá trình phát triển)
+```
+git clean -d    : xem trước các file trước khi xoá
+git clean -n    : xoá thư mục kèm với các file không được quản lý
+git clean -f    : buộc xoá
+```
+
+## Git rerere
+<!-- Update incoming -->
