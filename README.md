@@ -265,15 +265,64 @@ git clean -f    : buộc xoá
 
 ## Git rerere
 <!-- Update incoming -->
-# K8s
-```
-k get deploy
-k rollout restart deploy <deployment_name>
-```
+
 # Brew
+Là một trình quản lý các gói package cho macos, giúp người dùng dễ dàng cài đặt và cập nhật.
+```
+brew install <name>    : Cài đặt một gói
+brew update            : Update brew và các gói đã cài đặt
+brew upgrade <name>    : Update một gói cụ thể
+brew info <name>       : Hiển thị thông tin một gói
+brew ls                : Hiển thị danh sách các gói đã cài đặt (kết hợp với grep)
+brew uninstall <name>  : Gỡ cài đặt một gói
+brew options <name>    : Hiển thị tuỳ chọn cài đặt một gói
+```
+
 # Nginx
 `Nginx` là một máy chủ web proxy, xử lý trung gian các tác vụ cho các trang web.
 ```
+nginx -t         : Xem cấu hình nginx
+nginx -s reload  : Reload sau khi update các config
+nginx -s stop    : Dừng nginx
+```
+
+# Docker
+```
+docker -v
+docker ps : Danh sách các container đang chạy
+
+docker stop <container_id or container_name> : Dừng một container
+docker rm <container_id or container_name>   : Xoá một container
+
+docker images       : Danh sách các images
+docker rmi <image>  : Xoá một image
+docker run <image>  : Chạy một container từ một image
+```
+
+# Docker-compose
+```
+docker-compose build <name>  : Build một image
+docker-compose logs          : Xem log của các container
+
+docker-compose ps                   : Danh sách các container đang chạy
+docker-compose exec <container> sh  : Truy cập vào một container
+
+docker-compose up -d  : Tạo mới và run một container (chạy nền)
+docker-compose start <name> : Chạy một service đã tồn tại trước đố
+
+docker-compose down   : Dừng và xoá service đó kèm theo các service liên quan tới nó
+docker-compose stop <name>  : Dừng chạy một service mà không xoá nó
+```
+> Thêm tên của các container đằng sau để chỉ định cụ thể, nếu không lệnh sẽ được áp dụng cho tất cả các service
+
+# K8s (Kubernetes)
+- Giúp tự động hoá việc triển khai các container.
+- Docker giúp đóng gói ứng dụng và môi trường chạy của ứng dụng đó thành containers và K8s quản lý và triển khai các container này.
 
 ```
-# Docker & Docker-compose
+k get deploy                    : Lấy danh sách các deployment
+k rollout restart deploy <name> : restart lại một deployment
+
+kubectl get deployments
+kubectl get services
+```
