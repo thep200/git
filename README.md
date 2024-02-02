@@ -1,7 +1,6 @@
 # Git commands
 
-## Setup
-### Setup username and email
+## Setup username and email
 ```
 git config --global user.name [Your_Name]
 git config user.name                                    : Show username
@@ -9,20 +8,19 @@ git config --global user.email  [Your Email Git]
 git config user.email                                   : Show email address
 ```
 
-### Thay đổi editor default
+## Thay đổi editor default
 > Editor mặc định của git là command vim, được sử dụng ví dụ như lúc ta sửa message trong `git commit --amend`.
 ```
 git config --global core.editor "code --wait"       : Thay đổi editor
 git config --global -e                              : Sử dụng editor
 ```
 
-## Repository
-### Clone
+## Clone
 ```
-git clone [link_repository]       : Clone một repo về local
+git clone [link_repository] : Clone một repo về local
 ```
 
-### Link folder với một repository
+## Link folder với một repository
 > **Notes** : Link remote từ một folder với một repository trống.
 ```
 git init                                                    : Khởi tạo .git file
@@ -35,7 +33,7 @@ git push origin [name_branch]
 ```
 > Sử dụng `git push --set-upstream origin [name_branch]` để set stream với một branch lần sau chỉ cần dùng `git push` trên branch đó.
 
-### Thực hiện pull, fetch dữ liệu từ một repository về một folder trống trên local
+## Thực hiện pull, fetch dữ liệu từ một repository về một folder trống trên local
 > **Note** : tên của folder không cần thiết phải cùng tên với repository.
 ```
 git init
@@ -45,7 +43,7 @@ git branch -a | -r                                          : Kiểm tra tên c�
 git pull origin [name_branch]
 ```
 
-### Tạo liên kết với một folder đã có sẵn
+## Tạo liên kết với một folder đã có sẵn
 > **Note** : The folder that link must to has the same name as a repository.
 ```
 git init
@@ -73,8 +71,7 @@ git fetch       : Cập nhập thay đổi từ remote và giữ nguyên không 
 
 > `git pull` có thể hiểu đơn giản là `git fetch` + `git merge`. Do đó ta nói `git fetch` là một phiên bản get code nhưng an toàn hơn.
 
-## Add
-### Git add
+## Git add
 ```
 git status              : Check trạng thái thay đổi các file trong folder
 git add --all           : Add tất cả các file vào staging area
@@ -83,13 +80,13 @@ git add .               : Add tất cả file tại thư mục hiện tại
 git restore --staged .  : unadd các file trong thư mục đã chọn
 ```
 
-### Git commit
+## Git commit
 ```
 git commit -m [Message]       : Thực hiện commit
 git push origin [Name_branch] : Push lên server
 ```
 
-### Git commit amend
+## Git commit amend
 > **Note** Git sẽ show editor để ta sửa message (mặc định là vim của git)
 > - :q : Để thoát editor
 > - :w : Để lưu file
@@ -100,21 +97,20 @@ git commit --amend                  : (git sẽ show editor khi dùng lệnh nà
 git push -f                         : Push lên server khi dùng "git commit --amend"
 ```
 
-### Show commits
+## Show commits
 ```
 git log : Show tất cả các commit (Enter để xem chi tiết và gõ "q" để quay lại)
 gitk    : Show tất cả commit nhưng có UI
 ```
 
-### Back to commit (reset)
+## Back to commit (reset)
 ```
 git reflog                                                   : Show tất cả các commit đã từng thực hiện **(tất cả)**
 git reset --hard | --soft | --keep | --mixed [ID_commit]     : Back lại commit có id là [ID_commit] *id commit được lấy trong* `git reflog`
 git push origin [Name_branch] -f                             : Push lên server khi dùng "git reset --hard"
 ```
 
-## Branch
-### Switch branch
+## Switch branch
 ```
 git checkout [Name_branch]      : Chuyển sang branch mới
 git switch [Name_branch]        : Chuyển sang branch mới
@@ -122,13 +118,13 @@ git branch                      : Show tên branch hiện tại
 git branch -a                   : show list các branch
 ```
 
-### Create branch
+## Create branch
 ```
 git branch [Name_branch]               : Tạo một branch mới
 git checkout -b [Name_branch]          : Tạo và switch sang branch mới tạo
 ```
 
-### Rename branch
+## Rename branch
 ```
 git branch -m [new_name] [old_name]         : Rename branch khi đang ở một branch khác
 git branch -m [new_name]                    : Rename branch hiện tại khi đang ở branch hiện tại.
@@ -136,7 +132,7 @@ git push origin [new_name]                  : Push lên server khi rename branch
 git push origin :[old_name]                 : Xóa branch cũ bị rename trên server
 ```
 
-### Del branch
+## Delete branch
 > **Note** : Phải switch branch trước khi muốn xóa branch hiện tại.
 ```
 git branch -d [Name_branch]     : Xóa một branch trên local
@@ -145,26 +141,26 @@ git push origin :[Name_branch]  : Update thay đổi lên server
 
 ## Git tag
 Git tag được sử dụng để đặt tên cho một commit cụ thể và release một phiên bản từ commit đó. Có các loại git tag như sau:
-- Lightweight tag   : chỉ chứa tên của tag
-- Annotated tag     : chứa tên tag và các thông tin khác qua message kèm theo.
+- Lightweight tag  : chỉ chứa tên của tag
+- Annotated tag    : chứa tên tag và các thông tin khác qua message kèm theo.
 ```
-git tag <tag_name>                  : tạo một lightweight tag với tên là tag_name, `gắn vào commit trước đó`. Message sẽ là message của commit trước đó
-git tag -a <tag_name> -m <message>  : tạo một annotated tag với tên và messages cho commit trước đó
+git tag <tag_name>                              : tạo một lightweight tag với tên là tag_name, `gắn vào commit trước đó`. Message sẽ là message của commit trước đó
+git tag -a <tag_name> -m <message>              : tạo một annotated tag với tên và messages cho commit trước đó
 
-git log     : để lấy ra id (hash) của các commit trong một repo.
+git log                                         : để lấy ra id (hash) của các commit trong một repo.
 git tag <tag_name> <id_commit>                  : tạo một lightweight tag cho commit chỉ định
 git tag -a <tag_name> -m <message> <id_commit>  : tạo một annotated tag với tên và messages cho commit chỉ định.
 
-git tag -n          : show thông tin từng tag trên một dòng.
-git show <tag_name> : show thông tin chi tiết của một tag.
+git tag -n                                      : show thông tin từng tag trên một dòng.
+git show <tag_name>                             : show thông tin chi tiết của một tag.
 ```
 
-Thêm xóa
+## Thêm xóa
 ```
 git push origin <tag_name>  : push một tag lên remote
 git push origin --tags      : push tất cả các tag lên remote
 
-git tag -d <tag_name>       : xóa một tag ở local
+git tag -d <tag_name>        : xóa một tag ở local
 git push origin :<tag_name>  : xóa một tag ở remote nếu đã push nó lên local.
 ```
 
@@ -178,15 +174,14 @@ git checkout <tag_name>         : chỉ đơn giản là quay lại một commit
 ```
 [Xem thêm git reset](#git-reset)
 
-## Merge & rebase
-### Merge
+## Merge
 Khi merge bị conflict thì sử dụng `git status` để xem file vào bị conflict và sửa. Sau khi sửa lại thì thực hiện `git add` và `git commit` để merge.
 ```
 git merge [name_branch]         : Merge branch với branch hiện tại (sẽ không update các thay đổi của branch hiện tại vào branch mới)
 git merge --abort               :để hủy merge
 ```
 
-### Rebase
+## Rebase
 ```
 git rebase [name_branch]
 ```
@@ -233,7 +228,7 @@ git cherry-pick [Name_branch]~n                  : n mới nhất từ branch
 git cherry-pick ID_commit(a)^...ID_commit(e)     : Pick các commit liền kề nhau (a, b, c, d,..., e) ---> Bỏ ^ nếu không muốn lấy commit a.
 ```
 
-### Thực hiện commit trên 2 branch cùng một thời điểm
+## Thực hiện commit trên 2 branch cùng một thời điểm
 > Ví dụ thực hiện
 > Trên branch ***[Name_branch]**
 ```
@@ -270,3 +265,15 @@ git clean -f    : buộc xoá
 
 ## Git rerere
 <!-- Update incoming -->
+# K8s
+```
+k get deploy
+k rollout restart deploy <deployment_name>
+```
+# Brew
+# Nginx
+`Nginx` là một máy chủ web proxy, xử lý trung gian các tác vụ cho các trang web.
+```
+
+```
+# Docker & Docker-compose
