@@ -1,5 +1,45 @@
 # Git commands
 
+## Git SSH
+> Dùng 2 tài khoản git trên cùng một device? (mac)
+```sh
+# Step 1: di chuyển tới thư mục ssh trên local
+cd ~/.ssh
+
+# Step 2: gen ssh key trên local và ghi nó vào file (gen ssh key và ghi vào file github-foo). Xong bước này sẽ có một file github-foo.pub được sinh ra là nơi lưu public key của chúng ta
+ssh-keygen -t rsa -C "foo@gmail.com" -f "github-foo"
+
+# Step 3: add ssh key vào ssh-agent (trình quản lý, cung cấp cho ứng dụng khi có yêu cầu)
+ssh-add -K ~/.ssh/github-foo
+
+# Step 4: Copy ssh public key và paste vào github.com của chúng ta. Copy và dán vào đây https://github.com/settings/keys
+cat ~/.ssh/github-foo.pub
+
+# Step 5: tạo config file nếu chưa có và config host
+open config (touch config nếu chưa có)
+
+# Ghi cấu trúc sau vào file config (thay thế các config file của bạn)
+# foo account
+Host github.com-foo
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github-foo
+
+# Guide
+# Clone trên 2 tài khoản khác nhau
+git clone git@github.com-foo:{username}/{repository_name}.git
+
+# Config trước mỗi khi clone mới về để config username và email (được ghi vào comit)
+git config user.email "foo@gmail.com"
+git config user.name "foo"
+
+# Setup để pull hoặc push với đúng account
+git remote add origin git@github.com-foo:{username}
+
+# Check
+ssh -T <ssh_private_file>
+```
+
 ## Setup username and email
 ```
 git config --global user.name [Your_Name]
