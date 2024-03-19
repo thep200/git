@@ -7,7 +7,7 @@
 cd ~/.ssh
 
 # Step 2: gen ssh key trên local và ghi nó vào file (gen ssh key và ghi vào file github-foo). Xong bước này sẽ có một file github-foo.pub được sinh ra là nơi lưu public key của chúng ta
-ssh-keygen -t rsa -C "foo@gmail.com" -f "github-foo"
+ssh-keygen -t rsa -C "foo@gmail.com" -f "github-foo" # Nhấn enter để bỏ qua các optional
 
 # Step 3: add ssh key vào ssh-agent (trình quản lý, cung cấp cho ứng dụng khi có yêu cầu)
 ssh-add -K ~/.ssh/github-foo
@@ -24,20 +24,25 @@ Host github.com-foo
     HostName github.com
     User git
     IdentityFile ~/.ssh/github-foo
-
+# Check
+ssh -T <ssh_private_file>
+```
+```sh
 # Guide
-# Clone trên 2 tài khoản khác nhau
-git clone git@github.com-foo:{username}/{repository_name}.git
+# Clone/pull/push trên 2 tài khoản khác nhau
+# Github
+git clone git@{Host}:{username}/{repository_name}.git
+git remote add origin git@{Host}:{username}/{repository_name}.git
+git remote set-url origin git@{Host}:{username}/{repository_name}.git
+
+# Gitlab
+git clone git@{Host}:{group}/{repository_name}.git
+git remote add origin git@{Host}:{group}/{repository_name}.git
+git remote set-url origin git@{Host}:{group}/{repository_name}.git
 
 # Config trước mỗi khi clone mới về để config username và email (được ghi vào comit)
 git config user.email "foo@gmail.com"
 git config user.name "foo"
-
-# Setup để pull hoặc push với đúng account
-git remote add origin git@github.com-foo:{username}
-
-# Check
-ssh -T <ssh_private_file>
 ```
 
 ## Setup username and email
