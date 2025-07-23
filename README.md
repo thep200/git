@@ -371,3 +371,33 @@ k rollout restart deploy <name> : restart lại một deployment
 kubectl get deployments
 kubectl get services
 ```
+
+# Jmeter
+
+Được sử dụng để test hiệu năng cho các request. Hỗ trợ nhiều phương thức khác nhau như HTTP, gRPC,... Cho phép cấu hình tài nguyên để tối ưu và thực hiện test công bằng, có trực quan hoá các output dưới dạng HTML để dễ view.
+
+Nên sử dụng dạng GUI để thiết lập các cài đặt cho test sau đó lưu nó dưới định dạng `jmx` và sử dụng lệnh (command no-gui) để thực hiện test với số lượng tải lớn.
+
+*   `-Xms2g`    : khởi tạo ban đầu với heap là 2GB
+*   `-Xmx4g`    : giới hạn heap là 4GB
+*   `-Jthreads` : Cấu hình 200 threads
+*   `-Jramup`   : Cấu hình ramup (thời gian để khởi tạo các thread trên)
+*   `-Jloops`   : Cấu hình vòng lặp cho test
+*   `-R`        : Cấu hình chạy distributes
+*   `-j`        : đường dẫn tới file log
+
+```sh
+# Command run test
+jmeter -n -t path-to-input.jmx -l path-to-output.jtl
+
+# Command tạo báo cáo
+jmeter -g path-to-input.jtl -o path-to-folder-output 
+```
+
+Example:
+
+```sh
+jmeter -n -t /home/user/test.jmx -J-Xms4g -J-Xmx8g -Jthreads=300 -Jrampup=30 -R 192.168.1.10:1099,192.168.1.11:1099 -l /home/user/results.jtl -j /home/user/jmeter.log
+```
+
+> **Notes**: Trong lúc thiết lập test dựa trên GUI thứ tự của các item là quan trọng, nó ảnh hưởng tới việc chạy test tuỳ thuộc vào logic. Nên bỏ qua các listener lúc run command (listenner chỉ nên được sử dụng cho việc debug trên GUI)
